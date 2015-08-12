@@ -1,0 +1,29 @@
+{
+  "questions":[{
+      "question":"How many butterflies are there?",
+      "image": "butterflies.png",
+      "answers":["six", "seven", "eight"],
+      "correctanswer":"six"
+    }, {
+      "question":"What color are the lizards?",
+      "image": "lizards.jpg",
+      "answers":["brown", "green", "red"],
+      "correctanswer":"green"
+    }, {
+      "question":"How many blue birds are there?",
+      "image": "bluebird.jpg",
+      "answers":["eight", "four", "two"],
+      "correctanswer":"two"
+    }, {
+      "question":"What color are the cats?",
+      "image": "cats.jpg",
+      "answers":["white", "red", "purple"],
+      "correctanswer":"white"
+    }, {
+      "question":"How many yellow dogs are there?",
+      "image": "dogs.jpg",
+      "answers":["five", "ten", "three"],
+      "correctanswer":"ten"
+    }
+  ]
+}

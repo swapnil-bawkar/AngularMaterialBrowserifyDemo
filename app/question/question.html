@@ -1,0 +1,24 @@
+
+<md-content>
+    <md-card>
+        <md-card-content >
+            <p class="md-headline">{{questionCtrl.question.question}}</p>
+            <div layout="column" layout-align="center center">
+                <md-progress-circular ng-show="false" md-mode="indeterminate"></md-progress-circular>
+                <img style="width: 42%" ng-src="{{'images/' + questionCtrl.question.image}}" alt="image caption" >
+            </div>
+            <md-list ng-hide="questionCtrl.question.answer">
+                <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">
+                    <div class="md-list-item-text" layout="row" layout-align="center center">
+                        <p style="font-size: large">{{answer}}</p>
+                        <md-checkbox ng-hide="true" class="md-secondary"></md-checkbox>
+                    </div>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+            <md-card ng-show="questionCtrl.question.answer" flex="1">
+                <user-result></user-result>
+            </md-card>
+        </md-card-content>
+    </md-card>
+</md-content>

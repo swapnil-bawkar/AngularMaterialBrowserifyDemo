@@ -1,0 +1,25 @@
+
+<md-card-content >
+    <md-toolbar>
+        <div class="md-toolbar-tools" layout="row" layout-align="center center">
+            {{questionCtrl.question.answer}}
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <div layout="row" layout-align="center center" ng-class="{'result-content-correct' : questionCtrl.question.correct, 'result-content-incorrect' : !questionCtrl.question.correct}" >
+        <div ng-if="questionCtrl.question.correct">
+            <p>Correct!</p>
+            <md-icon style="color: white; margin-bottom: 10px; margin-left: 15px;" >
+                <i class="material-icons">done</i>
+            </md-icon>
+        </div>
+        <div layout="column" layout-align="center center" ng-if="!questionCtrl.question.correct">
+            <md-icon style="color: white; margin-top: 10px;">
+                <i class="material-icons">clear</i>
+            </md-icon>
+            <p>
+                The Correct answer is {{questionCtrl.question.correctanswer}}
+            </p>
+        </div>
+    </div>
+</md-card-content>
