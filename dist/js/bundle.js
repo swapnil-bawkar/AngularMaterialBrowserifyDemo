@@ -46,7 +46,6 @@
         });
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\app.js","/app")
-
 },{"./main/bottom-bar.html":2,"./main/main-ctrl.js":3,"./main/top-bar.html":4,"./question/question-service.js":5,"./question/question.js":7,"_process":22,"angular":17,"angular-aria":12,"angular-material":14,"angular-ui-router":15,"buffer":18}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
@@ -70,7 +69,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\main\\bottom-bar.html","/app\\main")
-
 },{"_process":22,"buffer":18}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
@@ -120,7 +118,6 @@ module.exports = ngModule;
     };
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\main\\main-ctrl.js","/app\\main")
-
 },{"_process":22,"buffer":18}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
@@ -151,7 +148,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\main\\top-bar.html","/app\\main")
-
 },{"_process":22,"buffer":18}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
@@ -185,7 +181,6 @@ module.exports = ngModule;
     };
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\question-service.js","/app\\question")
-
 },{"_process":22,"buffer":18}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
@@ -225,7 +220,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\question.html","/app\\question")
-
 },{"_process":22,"buffer":18}],7:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function() {
@@ -269,7 +263,6 @@ module.exports = ngModule;
         });
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\question.js","/app\\question")
-
 },{"./question.html":6,"./user-result.html":8,"_process":22,"buffer":18}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
@@ -310,7 +303,6 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\user-result.html","/app\\question")
-
 },{"_process":22,"buffer":18}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
@@ -4036,14 +4028,12 @@ angular.module('ngAnimate', [])
 })(window, window.angular);
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-animate\\angular-animate.js","/node_modules\\angular-animate")
-
 },{"_process":22,"buffer":18}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 require('./angular-animate');
 module.exports = 'ngAnimate';
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-animate\\index.js","/node_modules\\angular-animate")
-
 },{"./angular-animate":9,"_process":22,"buffer":18}],11:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
@@ -4441,14 +4431,12 @@ ngAriaModule.directive('ngShow', ['$aria', function($aria) {
 })(window, window.angular);
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-aria\\angular-aria.js","/node_modules\\angular-aria")
-
 },{"_process":22,"buffer":18}],12:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 require('./angular-aria');
 module.exports = 'ngAria';
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-aria\\index.js","/node_modules\\angular-aria")
-
 },{"./angular-aria":11,"_process":22,"buffer":18}],13:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
@@ -21620,7 +21608,6 @@ angular.module("material.core").constant("$MD_THEME_CSS", "/* mixin definition ;
 
 })(window, window.angular);
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-material\\angular-material.js","/node_modules\\angular-material")
-
 },{"_process":22,"buffer":18}],14:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // Should already be required, here for clarity
@@ -21637,7 +21624,6 @@ require('./angular-material');
 module.exports = 'ngMaterial';
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-material\\index.js","/node_modules\\angular-material")
-
 },{"./angular-material":13,"_process":22,"angular":17,"angular-animate":10,"angular-aria":12,"buffer":18}],15:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
@@ -26011,7 +25997,6 @@ angular.module('ui.router.state')
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-ui-router\\release\\angular-ui-router.js","/node_modules\\angular-ui-router\\release")
-
 },{"_process":22,"buffer":18}],16:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
@@ -54379,14 +54364,12 @@ var minlengthDirective = function() {
 
 !window.angular.$$csp() && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular\\angular.js","/node_modules\\angular")
-
 },{"_process":22,"buffer":18}],17:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 require('./angular');
 module.exports = angular;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular\\index.js","/node_modules\\angular")
-
 },{"./angular":16,"_process":22,"buffer":18}],18:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
@@ -55854,7 +55837,6 @@ function decodeUtf8Char (str) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\index.js","/node_modules\\browserify\\node_modules\\buffer")
-
 },{"_process":22,"base64-js":19,"buffer":18,"ieee754":20,"is-array":21}],19:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -55983,7 +55965,6 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\node_modules\\base64-js\\lib\\b64.js","/node_modules\\browserify\\node_modules\\buffer\\node_modules\\base64-js\\lib")
-
 },{"_process":22,"buffer":18}],20:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -56072,7 +56053,6 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\node_modules\\ieee754\\index.js","/node_modules\\browserify\\node_modules\\buffer\\node_modules\\ieee754")
-
 },{"_process":22,"buffer":18}],21:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 
@@ -56110,7 +56090,6 @@ module.exports = isArray || function (val) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\node_modules\\is-array\\index.js","/node_modules\\browserify\\node_modules\\buffer\\node_modules\\is-array")
-
 },{"_process":22,"buffer":18}],22:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // shim for using process in browser
@@ -56205,8 +56184,6 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\process\\browser.js","/node_modules\\browserify\\node_modules\\process")
-
-},{"_process":22,"buffer":18}]},{},[1])
-
+},{"_process":22,"buffer":18}]},{},[1]);
 
 //# sourceMappingURL=bundle.js.map
