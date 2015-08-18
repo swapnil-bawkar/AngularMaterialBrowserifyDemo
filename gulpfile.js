@@ -22,7 +22,7 @@ gulp.task('jshint',myHint);
 
 gulp.task('browserify', ['jshint'], function() {
     // Grabs the app.js file
-    return browserify('./app/app.js',{debug: production, insertGlobals: true})
+    return browserify('./app/app.js',{debug: !production, insertGlobals: true})
         .transform(ngHtml2Js({
             module: 'templates' // optional module name
         }))

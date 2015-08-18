@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mc_image_answer_choices>
+  <instructions>&lt;p&gt;Read and choose.&lt;/p&gt;</instructions>
+  <quickTips>&lt;ul&gt;
+&lt;li&gt;Read the words above each group of pictures.&lt;/li&gt;
+&lt;li&gt;Choose the picture that matches what you read.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;#160;&lt;/p&gt;
+&lt;p&gt;&amp;#160;&lt;/p&gt;</quickTips>
+  <pdfLink />
+  <fontSize value="lower" size="15"/>
+  <autoLettering value="Yes" />
+  <activitytype value="Yes" />
+  <questions>
+    <question>
+      <itemnumber />
+      <audio />
+      <text>&lt;p&gt;Red, yellow, and green.&lt;/p&gt;</text>
+      <answers>
+        <image>OD_SB1_028_09.jpg</image>
+        <image>OD_SB1_028_10.jpg</image>
+      </answers>
+      <correctanswer>2</correctanswer>
+    </question>
+    <question>
+      <itemnumber>A:</itemnumber>
+      <audio />
+      <text>&lt;p&gt;Green, white, and black.&lt;/p&gt;</text>
+      <answers>
+        <image>OD_SB1_028_11.jpg</image>
+        <image>OD_SB1_028_12.jpg</image>
+      </answers>
+      <correctanswer>2</correctanswer>
+    </question>
+    <question>
+      <itemnumber />
+      <audio />
+      <text>&lt;p&gt;Yellow, green, and purple.&lt;/p&gt;</text>
+      <answers>
+        <image>OD_SB1_028_13.jpg</image>
+        <image>OD_SB1_028_14.jpg</image>
+      </answers>
+      <correctanswer>2</correctanswer>
+    </question>
+    <question>
+      <itemnumber>Baggage:</itemnumber>
+      <audio />
+      <text>&lt;p&gt;Yellow, brown, and blue.&lt;/p&gt;</text>
+      <answers>
+        <image>OD_SB1_028_15.jpg</image>
+        <image>OD_SB1_028_16.jpg</image>
+      </answers>
+      <correctanswer>2</correctanswer>
+    </question>
+    <question>
+      <itemnumber />
+      <audio />
+      <text>&lt;p&gt;Red, yellow, and blue.&lt;/p&gt;</text>
+      <answers>
+        <image>OD_SB1_028_17.jpg</image>
+        <image>OD_SB1_028_18.jpg</image>
+      </answers>
+      <correctanswer>2</correctanswer>
+    </question>
+    <question>
+      <itemnumber />
+      <audio />
+      <text>&lt;p&gt;Brown, white, and green.&lt;/p&gt;</text>
+      <answers>
+        <image>OD_SB1_028_19.jpg</image>
+        <image>OD_SB1_028_20.jpg</image>
+      </answers>
+      <correctanswer>1</correctanswer>
+    </question>
+  </questions>
+</mc_image_answer_choices>
+

@@ -1,38 +1,46 @@
-'use strict';
 /**
  * Created by sbawkar on 8/7/2015.
  */
-module.exports = function(QuestionService, $state) {
-    var MainController = this;
-    MainController.questionNo = 1;
-    this.showProgress = true;
-    QuestionService.getQuestions().success(function (data) {
-        QuestionService.questions = data.questions;
-        MainController.progress =  MainController.questionNo / QuestionService.questions.length * 100;
-        $state.go('question',{id: 1});
-        MainController.showProgress = false;
-    });
+(function() {
+    'use strict';
 
-    this.showNext = function() {
-        if(!QuestionService.isAnswered()){
-            return;
+    //var xml2json = require('../shared/jsonxml/xml2json.js');
+    module.exports = function(QuestionService, $state) {
+        var MainController = this;
+        QuestionService.getQuestions().success(function (data) {
+            QuestionService.questions = data.questions;
+            $state.go('question',{id: 1});
+        });
+
+        function showNext() {
+            if(!QuestionService.isAnswered()){
+                return;
+            }
+            if(this.questionNo === QuestionService.questions.length - 1){
+                this.disableNext = true;
+            } else {
+                this.disableNext = false;
+            }
+            this.questionNo++;
+            if(this.questionNo < QuestionService.questions.length + 1){
+                this.progress = this.questionNo / QuestionService.questions.length * 100;
+                $state.go('question',{id: this.questionNo});
+            }
         }
-        if(this.questionNo === QuestionService.questions.length - 1){
-            this.disableNext = true;
-        } else {
+
+        var reset = function() {
             this.disableNext = false;
-        }
-        this.questionNo++;
-        if(this.questionNo < QuestionService.questions.length + 1){
+            this.questionNo = 1;
             this.progress = this.questionNo / QuestionService.questions.length * 100;
-            $state.go('question',{id: this.questionNo});
-        }
-    };
+            $state.go('home');
+        };
 
-    this.reset = function() {
-        this.disableNext = false;
-        this.questionNo = 1;
-        this.progress = this.questionNo / QuestionService.questions.length * 100;
-        $state.go('question',{id: this.questionNo});
+        return {
+            questionNo: 1,
+            showProgress: false,
+            progress: 0,
+            reset: reset,
+            showNext: showNext
+        };
     };
-};
+})();

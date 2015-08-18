@@ -1,68 +1,53 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
+(function() {
+    'use strict';
 
-var angular = require('angular');
-require('angular-material');
-require('angular-aria');
-require('angular-ui-router');
-require('./question/question.js');
-require('./main/top-bar.html');
-require('./main/bottom-bar.html');
+    var angular = require('angular');
+    require('angular-material');
+    require('angular-aria');
+    require('angular-ui-router');
+    require('./question/question.js');
+    require('./main/top-bar.html');
+    require('./main/bottom-bar.html');
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
-    'ngMaterial',
-    'ngAria',
-    'ui.router',
-    'myApp.question',
-    'templates'
-])
-    .config(function($stateProvider, $urlRouterProvider){
-        $urlRouterProvider.otherwise("/home");
-        $stateProvider.state('home', {
-            url: '/home',
-            controller: 'MainController',
-            controllerAs: 'mainCtrl'
-        });
-    })
-    .config(function($mdThemingProvider) {
-        $mdThemingProvider.theme('default')
-            .primaryPalette('cyan');
-    })
-    .service('QuestionService', [ '$http', function($http){
-        var QuestionService = {};
-        QuestionService.getQuestions = function() {
-            return $http({
-                method: 'GET',
-                url: '../data/question.json'
+    angular.module('myApp', [
+        'ngMaterial',
+        'ngAria',
+        'ui.router',
+        'myApp.question',
+        'templates'
+    ])
+        .config(function ($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise("/home");
+            $stateProvider.state('home', {
+                url: '/home',
+                controller: 'MainController',
+                controllerAs: 'mainCtrl'
             });
-        };
-        QuestionService.getQuestion = function(index) {
-            this.question = QuestionService.questions[index];
-            //angular.copy(QuestionService.questions[index],this.question);
-            return this.question;
-        };
-        QuestionService.isAnswered = function() {
-            return this.question.answer;
-        };
-        return QuestionService;
-    }])
-    .controller('MainController', ['QuestionService','$state', require('./main/main-ctrl.js')])
-    .directive('bottomBar', function() {
-        return {
-            restrict: 'E',
-            templateUrl: 'bottom-bar.html'
-        };
-    })
-    .directive('topBar', function() {
-        return {
-            restrict: 'E',
-            templateUrl: 'top-bar.html'
-        };
-    });
-
+        })
+        .config(function ($mdThemingProvider) {
+            $mdThemingProvider.theme('default')
+                .primaryPalette('cyan');
+        })
+        .service('QuestionService', ['$http', require('./question/question-service.js')])
+        .controller('MainController', ['QuestionService', '$state', require('./main/main-ctrl.js')])
+        .directive('bottomBar', function () {
+            return {
+                restrict: 'E',
+                templateUrl: 'bottom-bar.html'
+            };
+        })
+        .directive('topBar', function () {
+            return {
+                restrict: 'E',
+                templateUrl: 'top-bar.html'
+            };
+        });
+})();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\app.js","/app")
-},{"./main/bottom-bar.html":2,"./main/main-ctrl.js":3,"./main/top-bar.html":4,"./question/question.js":6,"_process":21,"angular":16,"angular-aria":11,"angular-material":13,"angular-ui-router":14,"buffer":17}],2:[function(require,module,exports){
+
+},{"./main/bottom-bar.html":2,"./main/main-ctrl.js":3,"./main/top-bar.html":4,"./question/question-service.js":5,"./question/question.js":7,"_process":22,"angular":17,"angular-aria":12,"angular-material":14,"angular-ui-router":15,"buffer":18}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
 try {
@@ -85,48 +70,58 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\main\\bottom-bar.html","/app\\main")
-},{"_process":21,"buffer":17}],3:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
 /**
  * Created by sbawkar on 8/7/2015.
  */
-module.exports = function(QuestionService, $state) {
-    var MainController = this;
-    MainController.questionNo = 1;
-    this.showProgress = true;
-    QuestionService.getQuestions().success(function (data) {
-        QuestionService.questions = data.questions;
-        MainController.progress =  MainController.questionNo / QuestionService.questions.length * 100;
-        $state.go('question',{id: 1});
-        MainController.showProgress = false;
-    });
+(function() {
+    'use strict';
 
-    this.showNext = function() {
-        if(!QuestionService.isAnswered()){
-            return;
+    //var xml2json = require('../shared/jsonxml/xml2json.js');
+    module.exports = function(QuestionService, $state) {
+        var MainController = this;
+        QuestionService.getQuestions().success(function (data) {
+            QuestionService.questions = data.questions;
+            $state.go('question',{id: 1});
+        });
+
+        function showNext() {
+            if(!QuestionService.isAnswered()){
+                return;
+            }
+            if(this.questionNo === QuestionService.questions.length - 1){
+                this.disableNext = true;
+            } else {
+                this.disableNext = false;
+            }
+            this.questionNo++;
+            if(this.questionNo < QuestionService.questions.length + 1){
+                this.progress = this.questionNo / QuestionService.questions.length * 100;
+                $state.go('question',{id: this.questionNo});
+            }
         }
-        if(this.questionNo === QuestionService.questions.length - 1){
-            this.disableNext = true;
-        } else {
+
+        var reset = function() {
             this.disableNext = false;
-        }
-        this.questionNo++;
-        if(this.questionNo < QuestionService.questions.length + 1){
+            this.questionNo = 1;
             this.progress = this.questionNo / QuestionService.questions.length * 100;
-            $state.go('question',{id: this.questionNo});
-        }
-    };
+            $state.go('home');
+        };
 
-    this.reset = function() {
-        this.disableNext = false;
-        this.questionNo = 1;
-        this.progress = this.questionNo / QuestionService.questions.length * 100;
-        $state.go('question',{id: this.questionNo});
+        return {
+            questionNo: 1,
+            showProgress: false,
+            progress: 0,
+            reset: reset,
+            showNext: showNext
+        };
     };
-};
+})();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\main\\main-ctrl.js","/app\\main")
-},{"_process":21,"buffer":17}],4:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
 try {
@@ -156,7 +151,42 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\main\\top-bar.html","/app\\main")
-},{"_process":21,"buffer":17}],5:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],5:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+/**
+ * Created by sbawkar on 8/18/2015.
+ */
+(function(){
+    'use strict';
+
+    module.exports = function($http) {
+        var QuestionService = {};
+        QuestionService.getQuestions = function () {
+            return $http({
+                method: 'GET',
+                url: '../data/question.json'
+            })/*.success(function(data) {
+                var json = xml2json(data, ' ');
+                console.log(json);
+                console.log(json2xml(eval('json='+json), '\n'));
+            })*/;
+        };
+
+        QuestionService.getQuestion = function (index) {
+            this.question = QuestionService.questions[index];
+            //angular.copy(QuestionService.questions[index],this.question);
+            return this.question;
+        };
+        QuestionService.isAnswered = function () {
+            return this.question.answer;
+        };
+        return QuestionService;
+    };
+})();
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\question-service.js","/app\\question")
+
+},{"_process":22,"buffer":18}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
 try {
@@ -195,49 +225,52 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\question.html","/app\\question")
-},{"_process":21,"buffer":17}],6:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],7:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-'use strict';
+(function() {
+    'use strict';
 
-require('./question.html');
-require('./user-result.html');
-angular.module('myApp.question', ['templates'])
+    require('./question.html');
+    require('./user-result.html');
+    angular.module('myApp.question', ['templates'])
 
-    .config(function($stateProvider, $urlRouterProvider){
-        $stateProvider.state('question', {
-            url: '/question/:id',
-            templateUrl: 'question.html',
-            controller: 'QuestionController',
-            controllerAs: 'questionCtrl'
-        });
-    })
-    .controller('QuestionController', [ '$stateParams','QuestionService', '$state',
-        function($stateParams, QuestionService, $state) {
-            var questionController = this;
-            if(!QuestionService.questions){
-                $state.go('home');
-                return;
-            }
-            questionController.questions = QuestionService.questions;
-            questionController.question = QuestionService.getQuestion($stateParams.id - 1);
-            this.answerClick = function(answer) {
-                questionController.question.answer = answer;
-                if(answer === questionController.question.correctanswer){
-                    questionController.question.correct = true;
-                } else {
-                    questionController.question.correct = false;
+        .config(function ($stateProvider, $urlRouterProvider) {
+            $stateProvider.state('question', {
+                url: '/question/:id',
+                templateUrl: 'question.html',
+                controller: 'QuestionController',
+                controllerAs: 'questionCtrl'
+            });
+        })
+        .controller('QuestionController', ['$stateParams', 'QuestionService', '$state',
+            function ($stateParams, QuestionService, $state) {
+                var questionController = this;
+                if (!QuestionService.questions) {
+                    $state.go('home');
+                    return;
                 }
+                questionController.questions = QuestionService.questions;
+                questionController.question = QuestionService.getQuestion($stateParams.id - 1);
+                this.answerClick = function (answer) {
+                    questionController.question.answer = answer;
+                    if (answer === questionController.question.correctanswer) {
+                        questionController.question.correct = true;
+                    } else {
+                        questionController.question.correct = false;
+                    }
+                };
+            }])
+        .directive('userResult', function () {
+            return {
+                restrict: 'E',
+                templateUrl: 'user-result.html'
             };
-        }])
-    .directive('userResult', function() {
-        return {
-            restrict: 'E',
-            templateUrl: 'user-result.html'
-        };
-    });
-
+        });
+})();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\question.js","/app\\question")
-},{"./question.html":5,"./user-result.html":7,"_process":21,"buffer":17}],7:[function(require,module,exports){
+
+},{"./question.html":6,"./user-result.html":8,"_process":22,"buffer":18}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var ngModule;
 try {
@@ -277,7 +310,8 @@ ngModule.run(['$templateCache', function ($templateCache) {
 
 module.exports = ngModule;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\user-result.html","/app\\question")
-},{"_process":21,"buffer":17}],8:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * @license AngularJS v1.4.3
@@ -4002,13 +4036,15 @@ angular.module('ngAnimate', [])
 })(window, window.angular);
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-animate\\angular-animate.js","/node_modules\\angular-animate")
-},{"_process":21,"buffer":17}],9:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 require('./angular-animate');
 module.exports = 'ngAnimate';
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-animate\\index.js","/node_modules\\angular-animate")
-},{"./angular-animate":8,"_process":21,"buffer":17}],10:[function(require,module,exports){
+
+},{"./angular-animate":9,"_process":22,"buffer":18}],11:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * @license AngularJS v1.4.3
@@ -4405,13 +4441,15 @@ ngAriaModule.directive('ngShow', ['$aria', function($aria) {
 })(window, window.angular);
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-aria\\angular-aria.js","/node_modules\\angular-aria")
-},{"_process":21,"buffer":17}],11:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],12:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 require('./angular-aria');
 module.exports = 'ngAria';
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-aria\\index.js","/node_modules\\angular-aria")
-},{"./angular-aria":10,"_process":21,"buffer":17}],12:[function(require,module,exports){
+
+},{"./angular-aria":11,"_process":22,"buffer":18}],13:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * Angular Material Design
@@ -21582,7 +21620,8 @@ angular.module("material.core").constant("$MD_THEME_CSS", "/* mixin definition ;
 
 })(window, window.angular);
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-material\\angular-material.js","/node_modules\\angular-material")
-},{"_process":21,"buffer":17}],13:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],14:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // Should already be required, here for clarity
 require('angular');
@@ -21598,7 +21637,8 @@ require('./angular-material');
 module.exports = 'ngMaterial';
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-material\\index.js","/node_modules\\angular-material")
-},{"./angular-material":12,"_process":21,"angular":16,"angular-animate":9,"angular-aria":11,"buffer":17}],14:[function(require,module,exports){
+
+},{"./angular-material":13,"_process":22,"angular":17,"angular-animate":10,"angular-aria":12,"buffer":18}],15:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * State-based routing for AngularJS
@@ -25971,7 +26011,8 @@ angular.module('ui.router.state')
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular-ui-router\\release\\angular-ui-router.js","/node_modules\\angular-ui-router\\release")
-},{"_process":21,"buffer":17}],15:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],16:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * @license AngularJS v1.4.3
@@ -54338,13 +54379,15 @@ var minlengthDirective = function() {
 
 !window.angular.$$csp() && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular\\angular.js","/node_modules\\angular")
-},{"_process":21,"buffer":17}],16:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],17:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 require('./angular');
 module.exports = angular;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\angular\\index.js","/node_modules\\angular")
-},{"./angular":15,"_process":21,"buffer":17}],17:[function(require,module,exports){
+
+},{"./angular":16,"_process":22,"buffer":18}],18:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /*!
  * The buffer module from node.js, for the browser.
@@ -55811,7 +55854,8 @@ function decodeUtf8Char (str) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\index.js","/node_modules\\browserify\\node_modules\\buffer")
-},{"_process":21,"base64-js":18,"buffer":17,"ieee754":19,"is-array":20}],18:[function(require,module,exports){
+
+},{"_process":22,"base64-js":19,"buffer":18,"ieee754":20,"is-array":21}],19:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
@@ -55939,7 +55983,8 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\node_modules\\base64-js\\lib\\b64.js","/node_modules\\browserify\\node_modules\\buffer\\node_modules\\base64-js\\lib")
-},{"_process":21,"buffer":17}],19:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],20:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
@@ -56027,7 +56072,8 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\node_modules\\ieee754\\index.js","/node_modules\\browserify\\node_modules\\buffer\\node_modules\\ieee754")
-},{"_process":21,"buffer":17}],20:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],21:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 
 /**
@@ -56064,7 +56110,8 @@ module.exports = isArray || function (val) {
 };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\buffer\\node_modules\\is-array\\index.js","/node_modules\\browserify\\node_modules\\buffer\\node_modules\\is-array")
-},{"_process":21,"buffer":17}],21:[function(require,module,exports){
+
+},{"_process":22,"buffer":18}],22:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // shim for using process in browser
 
@@ -56158,6 +56205,8 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules\\browserify\\node_modules\\process\\browser.js","/node_modules\\browserify\\node_modules\\process")
-},{"_process":21,"buffer":17}]},{},[1]);
+
+},{"_process":22,"buffer":18}]},{},[1])
+
 
 //# sourceMappingURL=bundle.js.map
