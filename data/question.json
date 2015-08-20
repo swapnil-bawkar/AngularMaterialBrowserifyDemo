@@ -5,15 +5,15 @@
       "answers":["six", "seven", "eight"],
       "correctanswer":"six"
     }, {
-      "question":"What color are the lizards?",
-      "image": "lizards.jpg",
-      "answers":["brown", "green", "red"],
-      "correctanswer":"green"
+      "question":"What you learn from video?",
+      "video": "G001_U001_act_001V_139954.mp4",
+      "answers":["act", "love", "play"],
+      "correctanswer":"act"
     }, {
-      "question":"How many blue birds are there?",
-      "image": "bluebird.jpg",
-      "answers":["eight", "four", "two"],
-      "correctanswer":"two"
+      "question":"How many words are there in the following audio?",
+      "audio": "Disc2_Track_22.mp3",
+      "answers":["eight", "six", "two"],
+      "correctanswer":"six"
     }, {
       "question":"What color are the cats?",
       "image": "cats.jpg",
