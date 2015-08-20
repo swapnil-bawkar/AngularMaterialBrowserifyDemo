@@ -28,7 +28,7 @@ gulp.task('browserify', ['jshint'], function() {
         }))
         // bundles it and creates a file called main.js
         .bundle()
-        .pipe(source('bundle-min.js'))
+        .pipe(source(production ? 'bundle.js' : 'bundle-min.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
