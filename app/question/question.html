@@ -3,7 +3,7 @@
     <md-card>
         <md-card-content >
             <p class="md-headline">{{questionCtrl.question.question}}</p>
-            <div layout="column" layout-align="center center" style="height: auto;" flex>
+            <div layout="column" layout-align="center center" style="height: auto;" flex="10">
                 <audio ng-if="questionCtrl.question.audio" controls>
                     <source ng-src="{{'./data/audio/' + questionCtrl.question.audio}}">
                     Your browser does not support the audio tag.
@@ -12,7 +12,7 @@
                     <source ng-src="{{'./data/videos/' + questionCtrl.question.video}}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <img ng-if="questionCtrl.question.image" style="height: 80%;width: 40%" ng-src="{{'./dist/images/' + questionCtrl.question.image}}" alt="image caption" >
+                <img class="question-image" ng-if="questionCtrl.question.image" ng-src="{{'./dist/images/' + questionCtrl.question.image}}" alt="image caption" >
             </div>
             <md-list ng-hide="questionCtrl.question.answer">
                 <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">

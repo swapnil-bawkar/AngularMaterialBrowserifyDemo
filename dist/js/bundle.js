@@ -197,7 +197,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    <md-card>\n' +
     '        <md-card-content >\n' +
     '            <p class="md-headline">{{questionCtrl.question.question}}</p>\n' +
-    '            <div layout="column" layout-align="center center" style="height: auto;" flex>\n' +
+    '            <div layout="column" layout-align="center center" style="height: auto;" flex="10">\n' +
     '                <audio ng-if="questionCtrl.question.audio" controls>\n' +
     '                    <source ng-src="{{\'./data/audio/\' + questionCtrl.question.audio}}">\n' +
     '                    Your browser does not support the audio tag.\n' +
@@ -206,7 +206,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '                    <source ng-src="{{\'./data/videos/\' + questionCtrl.question.video}}" type="video/mp4">\n' +
     '                    Your browser does not support the video tag.\n' +
     '                </video>\n' +
-    '                <img ng-if="questionCtrl.question.image" style="height: 80%;width: 40%" ng-src="{{\'./dist/images/\' + questionCtrl.question.image}}" alt="image caption" >\n' +
+    '                <img class="question-image" ng-if="questionCtrl.question.image" ng-src="{{\'./dist/images/\' + questionCtrl.question.image}}" alt="image caption" >\n' +
     '            </div>\n' +
     '            <md-list ng-hide="questionCtrl.question.answer">\n' +
     '                <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">\n' +
