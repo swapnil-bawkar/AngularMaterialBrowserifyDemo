@@ -1,11 +1,21 @@
 
 <md-content>
     <md-card>
-        <md-card-content >
+        <md-card-content >            
             <p class="md-headline">{{questionCtrl.question.question}}</p>
             <div layout="column" layout-align="center center">
                 <md-progress-circular ng-show="false" md-mode="indeterminate"></md-progress-circular>
-                <img style="width: 42%" ng-src="{{'images/' + questionCtrl.question.image}}" alt="image caption" >
+
+                <img style="width: 42%" ng-src="{{'images/' + questionCtrl.question.mediaFile}}" alt="image caption" ng-if="questionCtrl.question.mediaType == 'image'">
+
+                <audio controls ng-if="questionCtrl.question.mediaType == 'audio'">                 
+                 <source ng-src="{{'../data/audio/' + questionCtrl.question.mediaFile}}">
+                </audio>
+
+                <video width="400" controls ng-if="questionCtrl.question.mediaType== 'video'">
+                  <source ng-src="{{'../data/video/' + questionCtrl.question.mediaFile}}" type="video/mp4">                  
+                </video>
+
             </div>
             <md-list ng-hide="questionCtrl.question.answer">
                 <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">

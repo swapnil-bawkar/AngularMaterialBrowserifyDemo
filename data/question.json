@@ -1,29 +1,34 @@
 {
   "questions":[{
-      "question":"How many butterflies are there?",
-      "image": "butterflies.png",
+      "question":"How many butterflies are there?",      
       "answers":["six", "seven", "eight"],
-      "correctanswer":"six"
+      "correctanswer":"six",
+      "mediaType": "image",
+      "mediaFile":"butterflies.png"
     }, {
-      "question":"What color are the lizards?",
-      "image": "lizards.jpg",
+      "question":"What color are the lizards?",     
       "answers":["brown", "green", "red"],
-      "correctanswer":"green"
+      "correctanswer":"green",
+      "mediaType": "audio",
+      "mediaFile":"4-5_2.mp3"
     }, {
-      "question":"How many blue birds are there?",
-      "image": "bluebird.jpg",
+      "question":"How many blue birds are there?",      
       "answers":["eight", "four", "two"],
-      "correctanswer":"two"
+      "correctanswer":"two",
+      "mediaType": "image",
+      "mediaFile":"bluebird.jpg"
     }, {
-      "question":"What color are the cats?",
-      "image": "cats.jpg",
+      "question":"What color are the cats?",    
       "answers":["white", "red", "purple"],
-      "correctanswer":"white"
+      "correctanswer":"white",
+      "mediaType": "video",
+      "mediaFile":"G001_U001_act_001V_139954.mp4"
     }, {
-      "question":"How many yellow dogs are there?",
-      "image": "dogs.jpg",
+      "question":"How many yellow dogs are there?",      
       "answers":["five", "ten", "three"],
-      "correctanswer":"ten"
+      "correctanswer":"ten",
+      "mediaType": "image",
+      "mediaFile":"dogs.jpg"
     }
   ]
 }
