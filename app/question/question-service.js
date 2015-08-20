@@ -9,7 +9,7 @@
         QuestionService.getQuestions = function () {
             return $http({
                 method: 'GET',
-                url: '../data/question.json'
+                url: './data/question.json'
             })/*.success(function(data) {
                 var json = xml2json(data, ' ');
                 console.log(json);

@@ -28,7 +28,7 @@ gulp.task('browserify', ['jshint'], function() {
         }))
         // bundles it and creates a file called main.js
         .bundle()
-        .pipe(source('bundle.js'))
+        .pipe(source('bundle-min.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
@@ -56,25 +56,17 @@ gulp.task('images', function() {
         .pipe(gulp.dest('dist/images/'));
 });
 
-gulp.task('index-html', function() {
-    return gulp.src('./app/index.html')
-        .pipe(preprocess({context: { NODE_ENV: production ? 'production' : 'debug', DEBUG: true}}))
-        .pipe(gulp.dest('dist/'));
-});
 gulp.task('reload', function() {
     console.log('reload');
     return browserSync.reload();
 });
 gulp.task('watch', function() {
-    gulp.watch(['app/**/*.js', 'app/**/*.html', '!app/index.html'], function() {
+    gulp.watch(['app/**/*.js', 'app/**/*.html'], function() {
         runSequence('browserify', 'reload');
     });
     // Watches for changes in style.scss and runs the sass task
     gulp.watch('app/sass/style.scss', function() {
         runSequence('sass', 'reload');
-    });
-    gulp.watch('app/index.html', function() {
-        runSequence('index-html', 'reload');
     });
 });
 
@@ -94,15 +86,15 @@ gulp.task('clean', function () {
 
 gulp.task('connect', function(){
     production = false;
-    runSequence('clean','browserify', 'material-css', 'sass','images', 'index-html', 'server', 'watch');
+    runSequence('clean','browserify', 'material-css', 'sass','images', 'server', 'watch');
 });
 
 gulp.task('production', function() {
     production = true;
-    runSequence('clean','browserify', 'uglify', 'material-css', 'sass','images', 'index-html');
+    runSequence('clean','browserify', 'uglify', 'material-css', 'sass','images');
 });
 
 gulp.task('default', function() {
     production = false;
-    runSequence('clean','browserify','material-css', 'sass','images', 'index-html');
+    runSequence('clean','browserify','material-css', 'sass','images');
 });
