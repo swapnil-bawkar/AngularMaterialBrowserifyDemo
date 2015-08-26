@@ -5,7 +5,7 @@
     require('angular-material');
     require('angular-aria');
     require('angular-ui-router');
-    require('./question/question.js');
+    require('./question/app.js');
     require('./main/top-bar.html');
     require('./main/bottom-bar.html');
 // Declare app level module which depends on views, and components
@@ -16,18 +16,18 @@
         'myApp.question',
         'templates'
     ])
-        .config(function ($stateProvider, $urlRouterProvider) {
+        .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise("/home");
             $stateProvider.state('home', {
                 url: '/home',
                 controller: 'MainController',
                 controllerAs: 'mainCtrl'
             });
-        })
-        .config(function ($mdThemingProvider) {
+        }])
+        .config(['$mdThemingProvider', function ($mdThemingProvider) {
             $mdThemingProvider.theme('default')
                 .primaryPalette('cyan');
-        })
+        }])
         .service('QuestionService', ['$http', require('./question/question-service.js')])
         .controller('MainController', ['QuestionService', '$state', require('./main/main-ctrl.js')])
         .directive('bottomBar', function () {

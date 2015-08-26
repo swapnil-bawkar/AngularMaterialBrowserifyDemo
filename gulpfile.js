@@ -13,8 +13,6 @@ var uglify = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
-
-var preprocess = require('gulp-preprocess');
 var myHint = require('./gulp/jshint.js');
 
 var production = false;
@@ -36,7 +34,7 @@ gulp.task('browserify', ['jshint'], function() {
 });
 gulp.task('uglify', function() {
    return gulp.src('./dist/js/bundle.js')
-       .pipe(uglify({ mangle: false }))
+       .pipe(uglify())
        .pipe(rename('bundle-min.js'))
        .pipe(gulp.dest('./dist/js/'));
 });
