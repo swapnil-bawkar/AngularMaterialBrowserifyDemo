@@ -2,29 +2,39 @@
  * Created by sbawkar on 8/18/2015.
  */
 (function(){
-    'use strict';
+	'use strict';
 
-    module.exports = function($http) {
-        var QuestionService = {};
-        QuestionService.getQuestions = function () {
-            return $http({
-                method: 'GET',
-                url: './data/question.json'
-            })/*.success(function(data) {
-                var json = xml2json(data, ' ');
-                console.log(json);
-                console.log(json2xml(eval('json='+json), '\n'));
-            })*/;
-        };
+	QuestionService.$inject = ['$http'];
+	function QuestionService($http) {
+		var service = {
+			questions: [],
+			question: null,
+			getQuestions: getQuestions,
+			getQuestion: getQuestion,
+			isAnswered: isAnswered
+		};
+		return service;
 
-        QuestionService.getQuestion = function (index) {
-            this.question = QuestionService.questions[index];
-            //angular.copy(QuestionService.questions[index],this.question);
-            return this.question;
-        };
-        QuestionService.isAnswered = function () {
-            return this.question.answer;
-        };
-        return QuestionService;
-    };
+		function getQuestions() {
+			return $http({
+				method: 'GET',
+				url: './data/question.json'
+			})/*.success(function(data) {
+				var json = xml2json(data, ' ');
+				console.log(json);
+				console.log(json2xml(eval('json='+json), '\n'));
+			})*/;
+		};
+
+		function getQuestion(index) {
+			this.question = this.questions[index];
+			return this.question;
+		};
+
+		function isAnswered() {
+			return this.question.answer;
+		};
+	};
+
+	module.exports = QuestionService;
 })();

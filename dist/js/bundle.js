@@ -1,49 +1,52 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function() {
-    'use strict';
+	'use strict';
 
-    var angular = require('angular');
-    require('angular-material');
-    require('angular-aria');
-    require('angular-ui-router');
-    require('./question/app.js');
-    require('./main/top-bar.html');
-    require('./main/bottom-bar.html');
-// Declare app level module which depends on views, and components
-    angular.module('myApp', [
-        'ngMaterial',
-        'ngAria',
-        'ui.router',
-        'myApp.question',
-        'templates'
-    ])
-        .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/home");
-            $stateProvider.state('home', {
-                url: '/home',
-                controller: 'MainController',
-                controllerAs: 'mainCtrl'
-            });
-        }])
-        .config(['$mdThemingProvider', function ($mdThemingProvider) {
-            $mdThemingProvider.theme('default')
-                .primaryPalette('cyan');
-        }])
-        .service('QuestionService', ['$http', require('./question/question-service.js')])
-        .controller('MainController', ['QuestionService', '$state', require('./main/main-ctrl.js')])
-        .directive('bottomBar', function () {
-            return {
-                restrict: 'E',
-                templateUrl: 'bottom-bar.html'
-            };
-        })
-        .directive('topBar', function () {
-            return {
-                restrict: 'E',
-                templateUrl: 'top-bar.html'
-            };
-        });
+	var angular = require('angular');
+	require('angular-material');
+	require('angular-aria');
+	require('angular-ui-router');
+	require('./question/app.js');
+	require('./main/top-bar.html');
+	require('./main/bottom-bar.html');
+
+	angular.module('myApp', ['ngMaterial', 'ngAria', 'ui.router', 'myApp.question', 'templates'])
+		.config(stateProvider)
+		.config(themeProvider)
+		.service('QuestionService', require('./question/question-service.js'))
+		.controller('MainController', require('./main/main-ctrl.js'))
+		.directive('bottomBar', bottomBarDirective)
+		.directive('topBar', topBarDirective);
+
+	stateProvider.$inject = ['$stateProvider', '$urlRouterProvider'];
+	function stateProvider($stateProvider, $urlRouterProvider) {
+		$urlRouterProvider.otherwise('/home');
+		$stateProvider.state('home', {
+			url: '/home',
+			controller: 'MainController',
+			controllerAs: 'mainCtrl'
+		});
+	}
+
+	themeProvider.$inject = ['$mdThemingProvider'];
+	function themeProvider($mdThemingProvider) {
+		$mdThemingProvider.theme('default').primaryPalette('cyan');
+	}
+
+	function bottomBarDirective() {
+		return {
+			restrict: 'E',
+			templateUrl: 'bottom-bar.html'
+		};
+	}
+
+	function topBarDirective() {
+		return {
+			restrict: 'E',
+			templateUrl: 'top-bar.html'
+		};
+	}
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\app.js","/app")
 },{"./main/bottom-bar.html":2,"./main/main-ctrl.js":3,"./main/top-bar.html":4,"./question/app.js":5,"./question/question-service.js":7,"_process":23,"angular":18,"angular-aria":13,"angular-material":15,"angular-ui-router":16,"buffer":19}],2:[function(require,module,exports){
@@ -75,47 +78,80 @@ module.exports = ngModule;
  * Created by sbawkar on 8/7/2015.
  */
 (function() {
-    'use strict';
+	'use strict';
 
-    //var xml2json = require('../shared/jsonxml/xml2json.js');
-    module.exports = function(QuestionService, $state) {
-        var MainController = this;
-        QuestionService.getQuestions().success(function (data) {
-            QuestionService.questions = data.questions;
-            $state.go('question',{id: 1});
-        });
+	//var xml2json = require('../shared/jsonxml/xml2json.js');
+	MainController.$inject = ['QuestionService', '$state'];
+	function MainController(QuestionService, $state) {
+		var vm = this;
 
-        function showNext() {
-            if(!QuestionService.isAnswered()){
-                return;
-            }
-            if(this.questionNo === QuestionService.questions.length - 1){
-                this.disableNext = true;
-            } else {
-                this.disableNext = false;
-            }
-            this.questionNo++;
-            if(this.questionNo < QuestionService.questions.length + 1){
-                this.progress = this.questionNo / QuestionService.questions.length * 100;
-                $state.go('question',{id: this.questionNo});
-            }
-        }
+		vm.questionNo = 1;
+		vm.showProgress = false;
+		vm.progress = 0;
+		vm.reset = reset;
+		vm.showNext = showNext;
 
-        var reset = function() {
-            this.disableNext = false;
-            this.questionNo = 1;
-            this.progress = this.questionNo / QuestionService.questions.length * 100;
-            $state.go('home');
-        };
+		activate();
 
-        return {
-            questionNo: 1,
-            showProgress: false,
-            progress: 0,
-            reset: reset,
-            showNext: showNext
-        };
-    };
+		function activate() {
+			/**
+			 * Step 1
+			 * Ask the getQuestions function for the
+			 * question data and wait for the promise
+			 */
+			return getQuestions().then(function() {
+				/**
+				 * Step 4
+				 * Perform an action on resolve of final promise
+				 */
+				console.log('Activated question View');
+			});
+
+		}
+
+		function getQuestions() {
+		   /**
+			* Step 2
+			* Ask the data service for the data and wait
+			* for the promise
+		   	*/
+			return QuestionService.getQuestions()
+					.then(function (response) {
+						/**
+						* Step 3
+						* set the data and resolve the promise
+						*/
+						QuestionService.questions = response.data.questions;
+						$state.go('question',{id: 1});
+					});
+		}
+
+		function showNext() {
+			if(!QuestionService.isAnswered()){
+				return;
+			}
+			if(this.questionNo === QuestionService.questions.length - 1){
+				this.disableNext = true;
+			} else {
+				this.disableNext = false;
+			}
+			this.questionNo++;
+			if(this.questionNo < QuestionService.questions.length + 1){
+				this.progress = this.questionNo / QuestionService.questions.length * 100;
+				$state.go('question',{id: this.questionNo});
+			}
+		}
+
+		function reset() {
+			this.disableNext = false;
+			this.questionNo = 1;
+			this.progress = this.questionNo / QuestionService.questions.length * 100;
+			$state.go('home');
+		};
+
+	};
+
+	module.exports = MainController;
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\main\\main-ctrl.js","/app\\main")
 },{"_process":23,"buffer":19}],4:[function(require,module,exports){
@@ -151,57 +187,69 @@ module.exports = ngModule;
 },{"_process":23,"buffer":19}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function() {
-    'use strict';
+	'use strict';
 
-    require('./question.html');
-    require('./user-result.html');
+	require('./question.html');
+	require('./user-result.html');
 
-    angular.module('myApp.question', ['templates'])
+	angular.module('myApp.question', ['templates'])
+		.config(stateProvider)
+		.controller('QuestionController', require('./controller.js'))
+		.directive('userResult', userResultDirective);
 
-        .config(['$stateProvider', '$urlRouterProvider',function ($stateProvider, $urlRouterProvider) {
-            $stateProvider.state('question', {
-                url: '/question/:id',
-                templateUrl: 'question.html',
-                controller: 'QuestionController',
-                controllerAs: 'questionCtrl',
-                resolve: {
-                    question: ['$stateParams','QuestionService', function($stateParams, QuestionService) {
-                        return  QuestionService.getQuestion($stateParams.id - 1);
-                    }]
-                }
-            });
-        }])
-        .controller('QuestionController',
-            ['QuestionService', '$state', 'question', require('./controller.js')])
-        .directive('userResult', function () {
-            return {
-                restrict: 'E',
-                templateUrl: 'user-result.html'
-            };
-        });
+	stateProvider.$inject = ['$stateProvider', '$urlRouterProvider'];
+	function stateProvider($stateProvider, $urlRouterProvider) {
+		$stateProvider.state('question', {
+			url: '/question/:id',
+			templateUrl: 'question.html',
+			controller: 'QuestionController',
+			controllerAs: 'questionCtrl',
+			resolve: {
+				question: ['$stateParams','QuestionService', function($stateParams, QuestionService) {
+					return  QuestionService.getQuestion($stateParams.id - 1);
+				}]
+			}
+		});
+	}
+
+	function userResultDirective() {
+		return {
+			restrict: 'E',
+			templateUrl: 'user-result.html'
+		};
+	}
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\app.js","/app\\question")
 },{"./controller.js":6,"./question.html":8,"./user-result.html":9,"_process":23,"buffer":19}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function() {
-    'use strict';
+	'use strict';
 
-    module.exports = function (QuestionService, $state, question) {
-        var questionCtrl = this;
-        if (!QuestionService.questions) {
-            $state.go('home');
-            return;
-        }
-        questionCtrl.question = question;
-        this.answerClick = function (answer) {
-            questionCtrl.question.answer = answer;
-            if (answer === questionCtrl.question.correctanswer) {
-                questionCtrl.question.correct = true;
-            } else {
-                questionCtrl.question.correct = false;
-            }
-        };
-    };
+	QuestionController.$inject = ['QuestionService', '$state', 'question'];
+	function QuestionController(QuestionService, $state, question) {
+		var vm = this;
+
+		vm.question = question;
+		vm.answerClick = answerClick;
+
+		checkData();
+
+		function checkData() {
+			if (QuestionService.questions.length === 0) {
+				$state.go('home');
+			}
+		}
+
+		function answerClick(answer) {
+			this.question.answer = answer;
+			if (answer === this.question.correctanswer) {
+				this.question.correct = true;
+			} else {
+				this.question.correct = false;
+			}
+		};
+	};
+	module.exports = QuestionController;
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\controller.js","/app\\question")
 },{"_process":23,"buffer":19}],7:[function(require,module,exports){
@@ -210,31 +258,41 @@ module.exports = ngModule;
  * Created by sbawkar on 8/18/2015.
  */
 (function(){
-    'use strict';
+	'use strict';
 
-    module.exports = function($http) {
-        var QuestionService = {};
-        QuestionService.getQuestions = function () {
-            return $http({
-                method: 'GET',
-                url: './data/question.json'
-            })/*.success(function(data) {
-                var json = xml2json(data, ' ');
-                console.log(json);
-                console.log(json2xml(eval('json='+json), '\n'));
-            })*/;
-        };
+	QuestionService.$inject = ['$http'];
+	function QuestionService($http) {
+		var service = {
+			questions: [],
+			question: null,
+			getQuestions: getQuestions,
+			getQuestion: getQuestion,
+			isAnswered: isAnswered
+		};
+		return service;
 
-        QuestionService.getQuestion = function (index) {
-            this.question = QuestionService.questions[index];
-            //angular.copy(QuestionService.questions[index],this.question);
-            return this.question;
-        };
-        QuestionService.isAnswered = function () {
-            return this.question.answer;
-        };
-        return QuestionService;
-    };
+		function getQuestions() {
+			return $http({
+				method: 'GET',
+				url: './data/question.json'
+			})/*.success(function(data) {
+				var json = xml2json(data, ' ');
+				console.log(json);
+				console.log(json2xml(eval('json='+json), '\n'));
+			})*/;
+		};
+
+		function getQuestion(index) {
+			this.question = this.questions[index];
+			return this.question;
+		};
+
+		function isAnswered() {
+			return this.question.answer;
+		};
+	};
+
+	module.exports = QuestionService;
 })();
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/app\\question\\question-service.js","/app\\question")
 },{"_process":23,"buffer":19}],8:[function(require,module,exports){

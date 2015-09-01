@@ -1,20 +1,29 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    module.exports = function (QuestionService, $state, question) {
-        var questionCtrl = this;
-        if (!QuestionService.questions) {
-            $state.go('home');
-            return;
-        }
-        questionCtrl.question = question;
-        this.answerClick = function (answer) {
-            questionCtrl.question.answer = answer;
-            if (answer === questionCtrl.question.correctanswer) {
-                questionCtrl.question.correct = true;
-            } else {
-                questionCtrl.question.correct = false;
-            }
-        };
-    };
+	QuestionController.$inject = ['QuestionService', '$state', 'question'];
+	function QuestionController(QuestionService, $state, question) {
+		var vm = this;
+
+		vm.question = question;
+		vm.answerClick = answerClick;
+
+		checkData();
+
+		function checkData() {
+			if (QuestionService.questions.length === 0) {
+				$state.go('home');
+			}
+		}
+
+		function answerClick(answer) {
+			this.question.answer = answer;
+			if (answer === this.question.correctanswer) {
+				this.question.correct = true;
+			} else {
+				this.question.correct = false;
+			}
+		};
+	};
+	module.exports = QuestionController;
 })();
