@@ -1,0 +1,33 @@
+{
+    "globals": {
+        "require": true,
+        "module": true,
+        "ActiveXObject": true
+    },
+
+    "rules": {
+        "strict": [2, "function"],
+        "indent": [
+            2,
+            "tab"
+        ],
+        "quotes": [
+            0,
+            "single"
+        ],
+        "linebreak-style": [
+            2,
+            "windows"
+        ],
+        "semi": [
+            2,
+            "always"
+        ]
+    },
+    "env": {
+        "browser": true
+    },
+    "extends": "eslint:recommended",
+    "plugins": "angular",
+    "extends": "angular"
+}
