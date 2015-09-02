@@ -1,31 +1,28 @@
 
-<md-content>
-    <md-card>
-        <md-card-content >
-            <p class="md-headline">{{questionCtrl.question.question}}</p>
-            <div layout="column" layout-align="center center">
-                <audio ng-if="questionCtrl.question.audio" controls>
-                    <source ng-src="{{'./data/audio/' + questionCtrl.question.audio}}">
-                    Your browser does not support the audio tag.
-                </audio>
-                <video ng-if="questionCtrl.question.video" width="320" height="240" controls>
-                    <source ng-src="{{'./data/videos/' + questionCtrl.question.video}}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <img  class="question-image" ng-if="questionCtrl.question.image" ng-src="{{'./dist/images/' + questionCtrl.question.image}}" alt="image caption" >
-            </div>
-            <md-list ng-hide="questionCtrl.question.answer">
-                <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">
-                    <div class="md-list-item-text" layout="row" layout-align="center center">
-                        <p style="font-size: large">{{answer}}</p>
-                        <md-checkbox ng-hide="true" class="md-secondary"></md-checkbox>
-                    </div>
-                    <md-divider></md-divider>
-                </md-list-item>
-            </md-list>
-            <md-card ng-show="questionCtrl.question.answer" flex="1">
-                <user-result></user-result>
-            </md-card>
-        </md-card-content>
-    </md-card>
-</md-content>
+<md-card>
+    <md-card-content layout="column" layout-margin layout-fill layout-padding layout-align="space-around">
+        <p class="md-headline">{{questionCtrl.question.question}}</p>
+        <div layout="column" layout-align="space-around center">
+            <audio ng-if="questionCtrl.question.audio" controls>
+                <source ng-src="{{'./data/audio/' + questionCtrl.question.audio}}">
+                Your browser does not support the audio tag.
+            </audio>
+            <video ng-if="questionCtrl.question.video" width="320" height="240" controls>
+                <source ng-src="{{'./data/videos/' + questionCtrl.question.video}}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <img  class="question-image" ng-if="questionCtrl.question.image" ng-src="{{'./dist/images/' + questionCtrl.question.image}}" alt="image caption" >
+        </div>
+        <md-list ng-if="!questionCtrl.question.answer" class="md-list">
+            <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">
+                <div class="md-list-item-text" layout="row" layout-align="center center">
+                    <p style="font-size: large">{{answer}}</p>
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+        <md-card ng-if="questionCtrl.question.answer" flex="1" class="user-result">
+            <user-result></user-result>
+        </md-card>
+    </md-card-content>
+</md-card>

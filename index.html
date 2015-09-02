@@ -12,15 +12,18 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
   <link rel="stylesheet" href="dist/css/angular-material.min.css"/>
+    <link rel="stylesheet" href="app/sass/animate.css">
   <link rel="stylesheet" href="dist/css/style.css">
 </head>
 <body ng-app="myApp" ng-controller="MainController as mainCtrl">
     <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <top-bar></top-bar>
-    <div ui-view></div>
-    <bottom-bar></bottom-bar>
+    <div class="container" layout="column" layout-margin layout-fill layout-padding>
+        <top-bar></top-bar>
+        <div ui-view class="question-view" ></div>
+        <bottom-bar></bottom-bar>
+    </div>
     <script src="dist/js/bundle-min.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
   color: white;
   font-size: large;
 }
+
 .result-content-incorrect{
   background-color: #881313;
   color: white;
@@ -12,7 +13,7 @@
 }
 
 .question-image{
-  max-width: 100%;
+  max-width: 80%;
   background-size: cover;
   height: auto;
 }
@@ -21,3 +22,19 @@ video{
   max-width: 100%;
   height: auto;
 }
+
+audio{
+  max-width: 100%;
+}
+
+.md-list.ng-leave {
+  animation: 0s disappear;
+}
+
+.user-result.ng-enter {
+  animation: 1s zoomIn;
+}
+
+.question-view.ng-enter {
+   animation: 1s slideInRight;
+ }

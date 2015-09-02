@@ -307,36 +307,33 @@ try {
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('question.html',
     '\n' +
-    '<md-content>\n' +
-    '    <md-card>\n' +
-    '        <md-card-content >\n' +
-    '            <p class="md-headline">{{questionCtrl.question.question}}</p>\n' +
-    '            <div layout="column" layout-align="center center">\n' +
-    '                <audio ng-if="questionCtrl.question.audio" controls>\n' +
-    '                    <source ng-src="{{\'./data/audio/\' + questionCtrl.question.audio}}">\n' +
-    '                    Your browser does not support the audio tag.\n' +
-    '                </audio>\n' +
-    '                <video ng-if="questionCtrl.question.video" width="320" height="240" controls>\n' +
-    '                    <source ng-src="{{\'./data/videos/\' + questionCtrl.question.video}}" type="video/mp4">\n' +
-    '                    Your browser does not support the video tag.\n' +
-    '                </video>\n' +
-    '                <img  class="question-image" ng-if="questionCtrl.question.image" ng-src="{{\'./dist/images/\' + questionCtrl.question.image}}" alt="image caption" >\n' +
-    '            </div>\n' +
-    '            <md-list ng-hide="questionCtrl.question.answer">\n' +
-    '                <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">\n' +
-    '                    <div class="md-list-item-text" layout="row" layout-align="center center">\n' +
-    '                        <p style="font-size: large">{{answer}}</p>\n' +
-    '                        <md-checkbox ng-hide="true" class="md-secondary"></md-checkbox>\n' +
-    '                    </div>\n' +
-    '                    <md-divider></md-divider>\n' +
-    '                </md-list-item>\n' +
-    '            </md-list>\n' +
-    '            <md-card ng-show="questionCtrl.question.answer" flex="1">\n' +
-    '                <user-result></user-result>\n' +
-    '            </md-card>\n' +
-    '        </md-card-content>\n' +
-    '    </md-card>\n' +
-    '</md-content>');
+    '<md-card>\n' +
+    '    <md-card-content layout="column" layout-margin layout-fill layout-padding layout-align="space-around">\n' +
+    '        <p class="md-headline">{{questionCtrl.question.question}}</p>\n' +
+    '        <div layout="column" layout-align="space-around center">\n' +
+    '            <audio ng-if="questionCtrl.question.audio" controls>\n' +
+    '                <source ng-src="{{\'./data/audio/\' + questionCtrl.question.audio}}">\n' +
+    '                Your browser does not support the audio tag.\n' +
+    '            </audio>\n' +
+    '            <video ng-if="questionCtrl.question.video" width="320" height="240" controls>\n' +
+    '                <source ng-src="{{\'./data/videos/\' + questionCtrl.question.video}}" type="video/mp4">\n' +
+    '                Your browser does not support the video tag.\n' +
+    '            </video>\n' +
+    '            <img  class="question-image" ng-if="questionCtrl.question.image" ng-src="{{\'./dist/images/\' + questionCtrl.question.image}}" alt="image caption" >\n' +
+    '        </div>\n' +
+    '        <md-list ng-if="!questionCtrl.question.answer" class="md-list">\n' +
+    '            <md-list-item class="md-3-line" ng-repeat="answer in questionCtrl.question.answers" ng-click="questionCtrl.answerClick(answer)">\n' +
+    '                <div class="md-list-item-text" layout="row" layout-align="center center">\n' +
+    '                    <p style="font-size: large">{{answer}}</p>\n' +
+    '                </div>\n' +
+    '                <md-divider></md-divider>\n' +
+    '            </md-list-item>\n' +
+    '        </md-list>\n' +
+    '        <md-card ng-if="questionCtrl.question.answer" flex="1" class="user-result">\n' +
+    '            <user-result></user-result>\n' +
+    '        </md-card>\n' +
+    '    </md-card-content>\n' +
+    '</md-card>');
 }]);
 
 module.exports = ngModule;
