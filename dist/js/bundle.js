@@ -307,8 +307,8 @@ try {
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('question.html',
     '\n' +
-    '<md-card>\n' +
-    '    <md-card-content layout="column" layout-margin layout-padding layout-align="space-around">\n' +
+    '<md-card flex>\n' +
+    '    <md-card-content flex layout="column" layout-margin layout-padding layout-align="space-around">\n' +
     '        <p class="md-headline">{{questionCtrl.question.question}}</p>\n' +
     '        <div layout="column" layout-align="space-around center">\n' +
     '            <audio ng-if="questionCtrl.question.audio" controls>\n' +
